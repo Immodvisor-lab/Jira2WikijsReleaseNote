@@ -47,6 +47,7 @@ Then it concatenates evrything to create and upload a page in WikiJS.
     ```
     python3 run.py
     ```
+    
 ## License
 
 This project is licensed under the GNU General Public License - see the [LICENSE](LICENSE) file for details.
