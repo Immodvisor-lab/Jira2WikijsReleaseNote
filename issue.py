@@ -60,4 +60,4 @@ class Issue:
 
 
     def get_final_content(self):
-        return f'# {self.key} - {self.title} \n [Lien vers Jira]({self.link}) \n\n {self.content}'
+        return f'# {self.key} - {self.title} \n [Lien vers Jira]({self.link}) \n\n {self.content} \n'
