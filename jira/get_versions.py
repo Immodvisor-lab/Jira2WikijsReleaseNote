@@ -26,7 +26,7 @@ def get_versions():
         {
             'id': version['id'],
             'name': version['name'],
-            'releaseDate': version['releaseDate']
+            'releaseDate': version['releaseDate'] if 'releaseDate' in version else 'sans date'
         }
         for version in unreleased_versions
     ]

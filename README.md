@@ -29,6 +29,7 @@ Then it concatenates evrything to create and upload a page in WikiJS.
     ```
     pip install dotenv
     pip install jira2markdown
+    pip install Pillow
     ```
 
 2. **Create the `.env` file:**
@@ -44,9 +45,9 @@ Then it concatenates evrything to create and upload a page in WikiJS.
 
 ## Execute
 
-    ```
-    python3 run.py
-    ```
+```
+    python run.py
+```
     
 ## License
 
