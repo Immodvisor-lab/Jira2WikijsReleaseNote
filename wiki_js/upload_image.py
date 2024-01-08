@@ -6,7 +6,21 @@ import os
 
 load_dotenv()
 
-def upload_image(filename, image):
+def check_image_exists(dir_path, filename):
+    base_url = os.getenv("WIKIJS_BASE_URL")
+    image_url = f"{base_url}{dir_path}{filename}"
+    response = requests.get(
+        image_url,
+        headers={
+            'Authorization': 'Bearer '+os.getenv("WIKIJS_BEARER_TOKEN")
+        }, 
+    )
+    return response.status_code == 200
+
+def upload_image(filename, image, dir_path):
+
+    if check_image_exists(dir_path,filename):
+        return "Image "+filename+" already exists."
 
     openImage = Image.open(io.BytesIO(image.content))
 

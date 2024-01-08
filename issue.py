@@ -17,6 +17,7 @@ class Issue:
         self.link = os.getenv("JIRA_URL") + "/browse/" + self.key
         attachments = jira_issue['fields'][os.getenv("JIRA_FIELD_ATTACHMENT")]
         self.attachments = attachments if attachments is not None else []
+        self.image_path = "/releases-notes/"
 
     def upload_attachments(self):
         if len(self.attachments) == 0:
@@ -26,12 +27,12 @@ class Issue:
             if attachment['filename'] in self.content:
                 if attachment['content'] and attachment['mimeType'] == 'image/png':
                     image = get_image(attachment['content'])
-                    response = upload_image(attachment['filename'], image)
+                    response = upload_image(attachment['filename'], image, self.image_path)
                     print(response)
                 else:
                     print("Attachment found but it's not a .png : "+attachment['filename']+" for the issue "+self.key)
 
-    def update_img_src(self,html_string, prefix="/releases-notes/"):
+    def update_img_src(self,html_string):
         # Define the regex pattern to match <img> tags and extract src attribute
         img_pattern = re.compile(r'<img\s+([^>]*)src\s*=\s*["\'](.*?)["\']([^>]*)>', re.IGNORECASE)
 
@@ -40,7 +41,7 @@ class Issue:
             src = match.group(2)
             img_attributes_after = match.group(3)
 
-            updated_src = f'src="{prefix}{src}"'
+            updated_src = f'src="{self.image_path}{src}"'
             updated_img_tag = f'<img {img_attributes_before}{updated_src}{img_attributes_after}>'
 
             return updated_img_tag
